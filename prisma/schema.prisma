@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type MonthlyBudgetBills {
+  amount      Int
+  category    String
+  date        DateTime @db.Date
+  description String
+}
+
+type MonthlyBudgetCashflow {
+  inflow  MonthlyBudgetCashflowInflow
+  netflow Int
+  outflow MonthlyBudgetCashflowOutflow
+}
+
+type MonthlyBudgetCashflowInflow {
+  flows     MonthlyBudgetCashflowInflowFlows[]
+  totalFlow Int
+}
+
+type MonthlyBudgetCashflowInflowFlows {
+  name     String
+  quantity Int
+  type     String
+}
+
+type MonthlyBudgetCashflowOutflow {
+  flows     MonthlyBudgetCashflowOutflowFlows[]
+  totalFlow Int
+}
+
+type MonthlyBudgetCashflowOutflowFlows {
+  name     String
+  quantity Int
+  type     String
+}
+
+model MonthlyBudget {
+  id       String                @id @default(auto()) @map("_id") @db.ObjectId
+  bills    MonthlyBudgetBills[]
+  budget   Int
+  cashflow MonthlyBudgetCashflow
+  expenses Int
+}
