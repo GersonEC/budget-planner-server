@@ -1,0 +1,19 @@
+{
+  "name": "budget-planner-server",
+  "version": "1.0.0",
+  "description": "App to track expenses every month",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GersonEC/budget-planner-server.git"
+  },
+  "author": "Gerson Enriquez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GersonEC/budget-planner-server/issues"
+  },
+  "homepage": "https://github.com/GersonEC/budget-planner-server#readme"
+}
