@@ -48,4 +48,6 @@ model MonthlyBudget {
   budget   Int
   cashflow MonthlyBudgetCashflow
   expenses Int
+  month    Int
+  year     Int
 }
