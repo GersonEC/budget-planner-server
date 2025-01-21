@@ -15,9 +15,19 @@ export default async function (app: FastifyInstance) {
       month,
       year,
     };
-    console.log({ data });
-    prisma.monthlyBudget.create({
-      data,
+    const monthlyBudget = await prisma.monthlyBudget.create({
+      data: {
+        budget: data.budget,
+        expenses: data.expenses,
+        bills: data.bills,
+        cashflow: {
+          inflow: data.cashflow.inflow,
+          outflow: data.cashflow.outflow,
+          netflow: data.cashflow.netflow,
+        },
+        month: data.month,
+        year: data.year,
+      },
     });
     reply.status(201);
     return data;
