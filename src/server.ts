@@ -15,6 +15,7 @@ export default async function (app: FastifyInstance) {
   });
   app.register(cors, {
     origin: 'http://localhost:5173', // Allow your frontend's URL
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   app.ready(() => {
