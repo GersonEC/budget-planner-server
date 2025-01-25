@@ -29,6 +29,7 @@ type MonthlyBudgetCashflowInflowFlows {
   name     String
   quantity Int
   type     String
+  expenses  Int?
 }
 
 type MonthlyBudgetCashflowOutflow {
@@ -40,6 +41,7 @@ type MonthlyBudgetCashflowOutflowFlows {
   name     String
   quantity Int
   type     String
+  expenses  Int
 }
 
 model MonthlyBudget {
