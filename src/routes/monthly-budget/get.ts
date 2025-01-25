@@ -5,6 +5,6 @@ export default async function (app: FastifyInstance) {
   app.get('/', async (request, reply) => {
     const data = await prisma.monthlyBudget.findMany();
     console.log({ data });
-    return data;
+    return data[data.length - 1];
   });
 }
