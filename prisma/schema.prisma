@@ -8,8 +8,9 @@ datasource db {
 }
 
 type MonthlyBudgetBills {
+  id          String
   amount      Int
-  category    String
+  outflowName    String
   date        DateTime @db.Date
   description String
 }
