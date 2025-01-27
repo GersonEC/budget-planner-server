@@ -6,7 +6,23 @@ export default async function (app: FastifyInstance) {
   app.patch<{
     Body: MonthlyBudget;
   }>('/:id', async (request, reply) => {
-    const { budget, expenses, bills, cashflow, month, year } = request.body;
+    const { id } = request.params as { id: string };
+    const dataToUpdate = request.body;
+    console.log({ dataToUpdate });
+    try {
+      const updateBudget = await prisma.monthlyBudget.update({
+        where: { id },
+        data: dataToUpdate,
+      });
+      return reply.status(200).send(updateBudget);
+    } catch (error) {
+      console.error(error);
+      return reply.status(500).send({
+        error: 'An error occurred while updating the resource',
+      });
+    }
+
+    /*const { budget, expenses, bills, cashflow, month, year } = request.body;
     const data = {
       budget,
       expenses,
@@ -15,8 +31,9 @@ export default async function (app: FastifyInstance) {
       month,
       year,
     };
-    const { id } = request.params as { id: string };
-    const monthlyBudget = await prisma.monthlyBudget.update({
+    console.log({ data });
+    console.log(data.cashflow);
+    const updatedMonthlyBudget = await prisma.monthlyBudget.update({
       where: {
         id,
       },
@@ -34,6 +51,6 @@ export default async function (app: FastifyInstance) {
       },
     });
     reply.status(201);
-    return data;
+    return updatedMonthlyBudget;*/
   });
 }
