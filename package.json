@@ -21,9 +21,11 @@
   },
   "homepage": "https://github.com/GersonEC/budget-planner-server#readme",
   "dependencies": {
+    "@clerk/fastify": "^2.1.16",
     "@fastify/autoload": "^6.0.3",
     "@fastify/cors": "^10.0.2",
     "@prisma/client": "^6.2.1",
+    "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
     "fastify-plugin": "^5.0.1",
     "vercel": "^39.3.0"

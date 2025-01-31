@@ -10,7 +10,7 @@ datasource db {
 type MonthlyBudgetBills {
   id          String
   amount      Int
-  outflowName    String
+  outflowName String
   date        DateTime @db.Date
   description String
 }
@@ -30,7 +30,7 @@ type MonthlyBudgetCashflowInflowFlows {
   name     String
   quantity Int
   type     String
-  expenses  Int?
+  expenses Int?
 }
 
 type MonthlyBudgetCashflowOutflow {
@@ -42,15 +42,38 @@ type MonthlyBudgetCashflowOutflowFlows {
   name     String
   quantity Int
   type     String
-  expenses  Int
+  expenses Int
 }
 
 model MonthlyBudget {
   id       String                @id @default(auto()) @map("_id") @db.ObjectId
+  userId   String                @db.ObjectId // 🔥 Reference User model
+  user     User                  @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
   bills    MonthlyBudgetBills[]
   budget   Int
   cashflow MonthlyBudgetCashflow
   expenses Int
   month    Int
   year     Int
+}
+
+model Session {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String   @unique // Clerk's session ID
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+}
+
+model User {
+  id            String          @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId       String          @unique // Clerk's user ID
+  email         String          @unique
+  firstName     String?
+  lastName      String?
+  sessions      Session[] // One-to-many relation to sessions
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  MonthlyBudget MonthlyBudget[]
 }
