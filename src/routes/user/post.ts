@@ -26,7 +26,6 @@ export default async function (app: FastifyInstance) {
       }
 
       const sessionId = sessions[0].id;
-      console.log({ sessionId });
       await prisma.session.upsert({
         where: { sessionId },
         update: {

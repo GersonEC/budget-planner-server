@@ -2,11 +2,16 @@ import { FastifyInstance } from 'fastify';
 import { prisma } from '../../lib/prisma.ts';
 
 export default async function (app: FastifyInstance) {
-  app.get('/', async (request, reply) => {
+  app.get('/:userId', async (request, reply) => {
     try {
-      const data = await prisma.monthlyBudget.findMany();
+      const { userId } = request.params as { userId: string };
+      const data = await prisma.monthlyBudget.findFirst({
+        where: {
+          userId,
+        },
+      });
       console.log({ data });
-      return reply.status(200).send(data[data.length - 1]);
+      return reply.status(200).send(data);
     } catch (error) {
       console.error(error);
       return reply.status(500).send({

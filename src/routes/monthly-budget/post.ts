@@ -6,7 +6,8 @@ export default async function (app: FastifyInstance) {
   app.post<{
     Body: MonthlyBudget;
   }>('/', async (request, reply) => {
-    const { budget, expenses, bills, cashflow, month, year } = request.body;
+    const { budget, expenses, bills, cashflow, month, year, userId } =
+      request.body;
     const data = {
       budget,
       expenses,
@@ -14,6 +15,7 @@ export default async function (app: FastifyInstance) {
       cashflow,
       month,
       year,
+      userId,
     };
     const monthlyBudget = await prisma.monthlyBudget.create({
       data: {
@@ -27,9 +29,10 @@ export default async function (app: FastifyInstance) {
         },
         month: data.month,
         year: data.year,
+        userId: userId,
       },
     });
     reply.status(201);
-    return data;
+    return monthlyBudget;
   });
 }

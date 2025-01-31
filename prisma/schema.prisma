@@ -47,8 +47,8 @@ type MonthlyBudgetCashflowOutflowFlows {
 
 model MonthlyBudget {
   id       String                @id @default(auto()) @map("_id") @db.ObjectId
-  userId   String                @db.ObjectId // 🔥 Reference User model
-  user     User                  @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User
+  userId   String                // 🔥 Reference User model
+  user     User                  @relation(fields: [userId], references: [clerkId], onDelete: Cascade) // Relation to User
   bills    MonthlyBudgetBills[]
   budget   Int
   cashflow MonthlyBudgetCashflow
